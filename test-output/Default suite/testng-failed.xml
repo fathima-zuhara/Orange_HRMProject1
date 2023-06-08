@@ -5,9 +5,8 @@
     <classes>
       <class name="Page_Test_Orange.Login_pageTest">
         <methods>
-          <include name="Validate_BrowserClosing"/>
           <include name="Browser_config"/>
-          <include name="ValidatePerform_MyTrackers"/>
+          <include name="ValidatePerformance_Trackers"/>
         </methods>
       </class> <!-- Page_Test_Orange.Login_pageTest -->
     </classes>

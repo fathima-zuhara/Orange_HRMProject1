@@ -1,6 +1,8 @@
 package Pages_Orange;
 
+import java.lang.StackWalker.Option;
 import java.time.Duration;
+import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -14,34 +16,62 @@ public class Performance_KPIs extends Base_Page{
 	
 	public void KPIs_Search() {
 		
-		String job=prop.getProperty("jobTitle");
-		WebElement list=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div/div/div[2]/div/div/div[1]"));
-			List<WebElement> drop= driver.findElements(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div/div/div[2]/div/div/div[1]"));
-			for (int i=0;i< drop.size();i++) {
-				String Job=drop.get(i).getText();
-				System.out.println("Dropdown Text is  "+Job);
-				if (Job.contains(prop.getProperty("jobTitle"))) {
-					drop.get(i).click();
-					break;
-				}
-				   
-		            
-			      }
+
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div/div/div[2]")).click();	
+
+		
+		List<WebElement> drop= driver.findElements(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div/div/div[2]/div/div[2]/div[2]"));
+			Iterator<WebElement> iterator=drop.iterator();
+			while (iterator.hasNext()) {
+				WebElement webElement = (WebElement) iterator.next();
+				System.out.println(webElement.getText());
+				
+				if (webElement.getText().equals(prop.getProperty("jobTitle"))) {
+				webElement.click();	
+				  }
+
+		        }
 			   driver.findElement(By.xpath("//button[@type='submit']")).click();
 			   driver.findElement(By.xpath("//button[@type='reset']")).click();
-			   }
+		   }
 		
 		public void Add_KeyPerformance() {
 			
 			driver.findElement(By.xpath("(//button[@type='button'])[4]")).click();
 			driver.findElement(By.xpath("(//input[@class='oxd-input oxd-input--active'])[2]")).sendKeys(prop.getProperty("Key_Per.indicator"));
-		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/div/div[2]/div/div")).click();
-		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[1]/div/div[2]/input")).sendKeys(prop.getProperty("Min_Rating"));
-		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[2]/div/div[2]/input")).sendKeys(prop.getProperty("Max_Rating"));
+		
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/div/div[2]")).click();
+		
+			List<WebElement> drop= driver.findElements(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/div/div[2]/div/div[2]/div[3]"));
+			Iterator<WebElement> iterator=drop.iterator();
+			while (iterator.hasNext()) {
+				WebElement webElement = (WebElement) iterator.next();
+				System.out.println(webElement.getText());
+				if (webElement.getText().equals(prop.getProperty("jobTitleAdd"))) {
+				webElement.click();	
+				}
+			}
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+			
+		
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[1]/div/div[2]")).click();
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[1]/div/div[2]")).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(12));
-		driver.findElement(By.xpath("//span[@class='oxd-switch-input oxd-switch-input--active --label-right']")).click();
-		driver.findElement(By.xpath("//button[@class='oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space']")).click();
-		driver.findElement(By.xpath("//button[@class='oxd-button oxd-button--medium oxd-button--ghost']")).click();
+		WebElement element=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[3]/div/div/label/span"));
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("arguments[0].click;", element);
+		
+		WebElement elmt=driver .findElement(By.xpath("//button[@class='oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space']"));
+		JavascriptExecutor jse=(JavascriptExecutor)driver;
+		jse.executeScript("arguments[0].click;", elmt);
+		
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[3]/button[1]")).click();
 		
 		}
 		
@@ -76,29 +106,32 @@ public class Performance_KPIs extends Base_Page{
 			
 		
 			driver.findElement(By.xpath("(//input[@class='oxd-input oxd-input--active'])[2]")).sendKeys(prop.getProperty("EditKPI"));
-			
-			List<WebElement> dropKPI=driver.findElements(By.xpath("//div[@class='oxd-select-text-input']"));
-			for (int i=0;i< dropKPI.size();i++) {
-				String JobKPI=dropKPI.get(i).getText();
-				System.out.println("Dropdown Text is  "+JobKPI);
-				if (JobKPI.contains(prop.getProperty("jobTitle"))) {
-					dropKPI.get(i).click();
-					break;
+			//div[@class='oxd-select-text-input']
+		
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/div/div[2]")).click();
+			List<WebElement> dropKPI=driver.findElements(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/div/div[2]/div/div[2]/div[7]"));
+			Iterator<WebElement> iterator=dropKPI.iterator();
+			while (iterator.hasNext()) {
+				WebElement webElement = (WebElement) iterator.next();
+				System.out.println(webElement.getText());
+				if (webElement.getText().equals(prop.getProperty("EditKPI"))) {
+				webElement.click();	
 				}
-			driver.findElement(By.xpath("(//input[@class='oxd-input oxd-input--active'])[3]")).sendKeys(prop.getProperty("Min_Rate"));
-		  // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(12));
-//		   JavascriptExecutor jsr=(JavascriptExecutor)driver;
-//		   WebElement submit=driver.findElement(By.xpath("(//input[@class='oxd-input oxd-input--active'])[4]"));
-//		   jsr.executeScript("arguments[0].click();",submit);
+			}
 			
-			driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[2]/div/div[2]/input")).sendKeys(prop.getProperty("Max_Rate"));
+			
+			
+		
+			
+		//	driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/div/div[2]"));
 		   
 			
-		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[3]/div/div/label/span")).click();
-		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[3]/button[2]")).click();
-		driver.findElement(By.xpath("(//button[@type='button'])[3]")).click();
-			
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[3]/div/div/label/span"));
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[3]/button[2]"));
+		WebElement element= driver.findElement(By.xpath("(//button[@type='button'])[3]"));
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("arguments[0].click;", element);	
 			}
 		
 		}	
-}
+

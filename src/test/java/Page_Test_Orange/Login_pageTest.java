@@ -87,8 +87,8 @@ public class Login_pageTest extends Base_Page{
 		Pm.Tracker_View();
 		Pm.Add_Log();
 	}
-	@AfterMethod
-	public void Validate_BrowserClosing() {
-		TearDown();
-	}
+//	@AfterMethod
+//	public void Validate_BrowserClosing() {
+//		TearDown();
+//	}
 }
